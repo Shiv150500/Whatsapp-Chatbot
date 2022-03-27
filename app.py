@@ -5,11 +5,7 @@ import json
 import torch
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-from dotenv import load_dotenv
 import os
-
 
 app = Flask(__name__)
 
