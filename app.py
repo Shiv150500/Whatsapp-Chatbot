@@ -10,25 +10,6 @@ from sendgrid.helpers.mail import Mail
 from dotenv import load_dotenv
 import os
 
-#API Key
-load_dotenv()
-SENDGRID_API_KEY = os.getenv("API_KEY")
-
-# Error mailer
-def ermailer(body, recipients, Subject):
-    message = Mail(
-        from_email="aakash.belide@gmail.com",
-        to_emails=recipients,
-        subject=Subject,
-        html_content=body)
-    try:
-        sg = SendGridAPIClient(SENDGRID_API_KEY)
-        response = sg.send(message)
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
-    except Exception as e:
-        print(e.message)
 
 app = Flask(__name__)
 
@@ -92,10 +73,6 @@ def sms_reply():
     # If the probablity of the predicted tag is less than 75% then reply with error message and send a mail to manager
     else:
         resp.message("I do not understand. One of our executives would contact you soon.".format(msg))
-        error_body = "Error sending a reply message to: " + str(f_num) + ".\nThe message sent by the user is: " + str(org_msg)
-        sub = str(f_num) + " Message Error!"
-        mail_id = "aakash.belide@gmail.com"
-        ermailer(error_body, mail_id, sub)
 
     return str(resp)
 
