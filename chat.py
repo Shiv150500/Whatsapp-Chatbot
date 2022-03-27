@@ -42,7 +42,6 @@ def chat(msg):
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
 
-    resp = MessagingResponse()
     # If the probablity of the predicted tag is greater than 75% then reply with respective message
     if prob.item() > 0.75:
         for intent in intents["intents"]:
@@ -54,8 +53,9 @@ def chat(msg):
     else:
         return ("I do not understand. One of our executives would contact you soon.".format(msg))
 
-msg = ""
-
-while msg!="exit":
-    msg = input()
-    print(chat(msg))
+while True:
+    msg = input("Enter Your Message: ")
+    if msg == "exit":
+        break
+    else:    
+        print(chat(msg))
